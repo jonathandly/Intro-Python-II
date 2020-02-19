@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -38,7 +39,8 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+new_player = Player('jd', room['outside'])
+print(new_player)
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,3 +51,37 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+exit = False
+while not exit:
+    direction = input('Select n,s,e, or w to move the player.\nSelect q to exit.')
+    try:
+        if direction == 'q':
+            exit = True
+        elif new_player.current_room == room['outside'] and direction == 'n':
+            new_player.current_room = room['foyer']
+            print(new_player.current_room)
+        elif new_player.current_room == room['foyer'] and direction == 's':
+            new_player.current_room = room['outside']
+            print(new_player)
+        elif new_player.current_room == room['foyer'] and direction == 'n':
+            new_player.current_room = room['overlook']
+            print(new_player)
+        elif new_player.current_room == room['foyer'] and direction == 'e':
+            new_player.current_room = room['narrow']
+            print(new_player)
+        elif new_player.current_room == room['overlook'] and direction == 's':
+            new_player.current_room = room['foyer']
+            print(new_player)
+        elif new_player.current_room == room['narrow'] and direction == 'w':
+            new_player.current_room = room['foyer']
+            print(new_player)
+        elif new_player.current_room == room['narrow'] and direction == 'n':
+            new_player.current_room = room['treasure']
+            print(new_player)
+        elif new_player.current_room == room['treasure'] and direction == 's':
+            new_player.current_room = room['narrow']
+            print(new_player)
+        else:
+            raise NameError('Invalid Selection')
+    except NameError:
+        print('Error: Please Enter only n,s,e,w or q')
