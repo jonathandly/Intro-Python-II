@@ -3,11 +3,19 @@ class Item:
         self.name = name
         self.description = description
 
+        self.items = []
+
     def __str__(self):
         return f'\n{self.name} -> {self.description}\n'
 
-    def inspect(self):
-        return f'The item: {self.name} is -> {self.description}'
+    # def inspect(self):
+    #     return f'The item: {self.name} is -> {self.description}'
+
+    def on_take(self):
+        return f'You have picked up {self.name}'
+
+    def on_drop(self):
+        return f'You dropped {self.name}'
 
 
 class Food(Item):
